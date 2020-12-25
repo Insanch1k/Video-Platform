@@ -70,7 +70,7 @@ class MainController extends AbstractController
        $subscription = $user->getSubscription();
        $subscription->setValidTo(new \Datetime());
        $subscription->setPaymentStatus(null);
-       $subscription->setPlan('canceled');
+
 
        $entityManager = $this->getDoctrine()->getManager();
        $entityManager->persist($user);

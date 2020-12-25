@@ -36,6 +36,9 @@ class UserFixtures extends Fixture
         return [
             ['Anton', 'admin', 'avk_2202@meta.ua','passw', 'hjd8dehdh',['ROLE_ADMIN']],
             ['Andrey', 'loh', 'loh_2202@meta.ua','passw', 'hjd8fehdh',['ROLE_ADMIN']],
+            ['Simple', 'simple', 'simple2@gmail.com', 'passw', null,['ROLE_USER']],
+            ['blackASS', 'nigger', 's2@gmail.com', 'passw', null,['ROLE_USER']]
+
         ];
     }
 }
