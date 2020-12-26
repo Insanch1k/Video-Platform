@@ -7,13 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index as Index;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
  * @ORM\Table(name="videos", indexes={@Index(name="title_idx", columns={"title"})})
  */
 class Video
 {
-    public const videoForNotLoggedInOrNoMembers = 113716040;
+    public const uploadFolder = '/uploads/videos/';
+    public const videoForNotLoggedInOrNoMembers = 'https://player.vimeo.com/video/113716040';
     public const vimeoPath = 'https://player.vimeo.com/video/';
     public const perPage = 5;
 
@@ -62,6 +64,12 @@ class Video
      */
     private $usersThatDontLike;
 
+    /**
+     * @Assert\NotBlank (message="Please, upload the video as MP4")
+     * @Assert\File (mimeTypes={"video/mp4"})
+     */
+    private $uploaded_video;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -93,12 +101,13 @@ class Video
 
     public function getVimeoId()
     {
-//        if($user)
-//        {
-//            return $this->path;
-//        }
-//        else return self::vimeoPath.self::videoForNotLoggedIn;
-        return $this->path;
+        if(strpos($this->path, self::uploadFolder) != false)
+        {
+            return $this->path;
+        }
+        $array = explode('/', $this->path);
+        return end($array);
+
     }
 
     public function setPath(string $path): self
@@ -206,6 +215,18 @@ class Video
     public function removeUsersThatDontLike(User $usersThatDontLike): self
     {
         $this->usersThatDontLike->removeElement($usersThatDontLike);
+
+        return $this;
+    }
+
+    public function getUploadedVideo(): ?string
+    {
+        return $this->uploaded_video;
+    }
+
+    public function setUploadedVideo($uploaded_video): self
+    {
+        $this->uploaded_video = $uploaded_video;
 
         return $this;
     }

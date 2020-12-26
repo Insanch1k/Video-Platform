@@ -25,8 +25,8 @@ class SubscriptionFixtures extends Fixture
 //
 //            $manager->persist($user);
 //        }
-
-        //$manager->flush();
+//
+        $manager->flush();
     }
 
 //    private function getSubscriptionData():array
@@ -39,5 +39,5 @@ class SubscriptionFixtures extends Fixture
 //            [4,Subscription::getPlanDataNameByIndex(1),
 //                (new \Datetime())->modify('+1 minute'), 'paid', false],
 //        ];
-    //}
+//    }
 }
