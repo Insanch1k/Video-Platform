@@ -30,21 +30,17 @@
 
     <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Register first (free)</h4>
-        {{ form_start(form, {'attr':{'novalidate':'novalidat', 'class':'needs-validation'}}) }}
-{#        <form method="POST" action="#" class="needs-validation" novalidate>#}
+        {{ form_start(form, {'attr':{'class':'needs-validation'}}) }}
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="user_name">First name</label>
-{#                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>#}
                     {{ form_widget(form.name) }}
-
                     <div class="invalid-feedback">
                         {{ form_errors(form.name) }}
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="last_name">Last name</label>
-{#                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>#}
                     {{ form_widget(form.last_name) }}
                     <div class="invalid-feedback">
                         {{ form_errors(form.last_name) }}
