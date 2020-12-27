@@ -55,7 +55,7 @@
                             </form>
                         </td>
 
-                        <td><a href="{{ path('delete_video', {'video':video.id, 'path': video.vimeoId}) }}"
+                        <td><a href="{{ path('delete_video', {'video':video.id}) }}"
                                onclick="delete_video(event);"><i class="fas fa-trash"></i></a></td>
                     {% endif %}
                 </tr>
