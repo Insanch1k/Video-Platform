@@ -11,19 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @Route ("/admin")
  */
 class MainController extends AbstractController
 {
 
-
-
     /**
      * @Route("/", name="admin_main_page")
      */
-    public function index(Request $request, UserPasswordEncoderInterface $password_encoder): Response
+    public function index(Request $request, UserPasswordEncoderInterface $password_encoder,
+    TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user, ['user' => $user]);
@@ -39,13 +38,14 @@ class MainController extends AbstractController
             $user->setEmail($request->request->get('user')['email']);
             $password = $password_encoder->encodePassword($user, $request->request->get('user')['password']['first']);
             $user->setPassword($password);
-            $entityManager->persist($user);
+             $entityManager->persist($user);
             $entityManager->flush();
 
+            $translator = $translator->trans('Your changes were saved');
 
             $this->addFlash(
                 'success',
-                'Your changes were saved!'
+                $translator
             );
             return $this->redirectToRoute('admin_main_page');
         } else {
@@ -63,9 +63,9 @@ class MainController extends AbstractController
 
 
 
-
+//@Route("/videos", name="videos")
     /**
-     * @Route("/videos", name="videos")
+     * @Route ({"en":"/videos", "pl":"/lista-video"}, name="videos")
      */
     public function videos(CategoryTreeAdminOptionList $categories)
     {
